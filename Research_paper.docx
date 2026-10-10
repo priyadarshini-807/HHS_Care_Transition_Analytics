@@ -1,0 +1,194 @@
+CARE TRANSITION EFFICIENCY &
+PLACEMENT OUTCOME ANALYTICS
+
+HHS Unaccompanied Alien Children Program
+
+Research Paper
+Unified Mentor Project
+
+Prepared as an analytical study of care-transition efficiency,
+pipeline movement, bottlenecks, and outcome stability.
+
+
+HHS Care Transition Analytics | Page 
+
+Abstract
+
+This study analyzes care-transition activity within the Unaccompanied Alien Children (UAC) Program using daily operational data covering 720 reporting days. The analysis models the movement of children from apprehension and CBP custody through transfer to HHS care and eventual discharge/reunification. Exploratory data analysis, transition ratios, backlog indicators, temporal comparisons, bottleneck detection, and outcome stability analysis were used to identify process patterns. The observed dataset contains 67,337 apprehensions, 92,641 transfers, and 124,853 discharges. The project-defined Transfer Efficiency Ratio was 75.03%, Discharge Effectiveness Index was 2.86%, and Pipeline Throughput Rate was 185.42%. In addition, 17.78% of reporting days showed higher inflow than outflow, while the Outcome Stability Score was 27.51/100 based on discharge variability. The analysis identified 128 bottleneck days and 11 sustained imbalance periods of at least three consecutive days, with the longest lasting five days. The results demonstrate the usefulness of dashboard-based monitoring for detecting operational pressure, supporting case-management prioritization, and improving visibility into care-transition performance.
+
+Keywords
+
+Care transition, UAC Program, HHS care, CBP custody, discharge, bottleneck analysis, backlog, pipeline throughput, outcome stability, Streamlit dashboard
+
+1. Introduction
+
+The Unaccompanied Alien Children (UAC) Program involves a multi-stage care and reunification pipeline. Children may first be apprehended and placed in U.S. Customs and Border Protection (CBP) custody, then transferred to the U.S. Department of Health and Human Services (HHS) for care, case management, and related services, before being discharged to vetted sponsors or through another appropriate placement outcome.
+
+Aggregate counts can describe the scale of program activity, but they do not by themselves explain how efficiently cases move through the pipeline. This project therefore focuses on transition efficiency, discharge activity, backlog pressure, temporal patterns, and consistency of outcomes. A combination of Python-based exploratory data analysis and an interactive Streamlit dashboard was developed to make these patterns easier to monitor.
+
+2. Problem Statement
+
+The primary analytical problem is the lack of simple, consistent process-efficiency measures derived from aggregate care-transition counts. Without transition ratios, backlog indicators, and stability measures, it is difficult to identify periods when inflow is exceeding successful exits, when transfers or discharges are changing sharply, or when operational performance becomes inconsistent.
+
+3. Objectives
+
+Measure the efficiency of transitions from CBP custody to HHS care.
+
+Evaluate discharge activity and sponsor-placement-related outcomes using the available discharge measure.
+
+Identify days and periods showing potential process bottlenecks or sustained inflow-outflow imbalance.
+
+Analyze temporal patterns, including monthly trends and weekday-versus-weekend activity.
+
+Assess the consistency of discharge outcomes using a variability-based stability score.
+
+Develop an interactive Streamlit dashboard for date filtering, KPI monitoring, ratio-based analysis, and threshold alerts.
+
+Provide data-driven recommendations that can support case-management and process-improvement decisions.
+
+4. Dataset and Variables
+
+The dataset used for the project contains 1,170 original rows and six core variables. After removing empty rows, 720 valid daily records remained. Dates were converted to datetime format and the records were sorted chronologically before time-based analysis.
+
+Variable
+
+Description
+
+Date
+
+Reporting date for the observation.
+
+Children apprehended and placed in CBP custody*
+
+Daily inflow measure used for pipeline entry analysis.
+
+Children in CBP custody
+
+Number of children reported in CBP custody.
+
+Children transferred out of CBP custody
+
+Daily movement from CBP custody toward HHS care.
+
+Children in HHS Care
+
+Children reported as being in HHS care.
+
+Children discharged from HHS Care
+
+Daily outflow measure used for discharge and exit analysis.
+
+5. Methodology
+
+The analysis followed a structured workflow: data cleaning, exploratory visualization, KPI computation, backlog and bottleneck analysis, temporal analysis, stability analysis, and dashboard development.
+
+5.1 Data Preparation
+
+Empty rows were removed, dates were converted to datetime values, numeric fields were cleaned, and the dataset was sorted in chronological order. Cleaned and analytical versions of the dataset were saved as CSV outputs for reproducibility.
+
+5.2 Care Pipeline Model
+
+The process was modeled as a sequence of apprehension/entry, CBP custody, transfer, HHS care, and discharge/placement. Daily movements were compared to identify periods where inflow exceeded outflow.
+
+5.3 Project-Defined KPIs
+
+KPI
+
+Formula
+
+Result
+
+Transfer Efficiency Ratio
+
+Total transfers ÷ Total children in CBP custody × 100
+
+75.03%
+
+Discharge Effectiveness Index
+
+Total discharges ÷ Total children in HHS care × 100
+
+2.86%
+
+Pipeline Throughput Rate
+
+Total discharges ÷ Total apprehensions × 100
+
+185.42%
+
+Backlog Accumulation Rate
+
+Days where inflow > outflow ÷ total reporting days × 100
+
+17.78%
+
+Outcome Stability Score
+
+max(0, 100 − discharge coefficient of variation %)
+
+27.51 / 100
+
+Important interpretation note: the project-defined formulas are ratio-based monitoring indicators rather than conventional case-level success rates. In particular, Pipeline Throughput can exceed 100% because discharges during the reporting period may relate to children who entered the pipeline earlier. Similarly, the Discharge Effectiveness Index follows the project specification and should not be interpreted as the percentage of individual cases successfully discharged.
+
+The Backlog Accumulation Rate is defined here as the percentage of reporting days on which daily inflow exceeded daily discharge outflow. It is therefore an operational pressure indicator, not a direct count of unresolved cases. The Outcome Stability Score is a variability-based analytical score derived from the coefficient of variation of daily discharges.
+
+5.4 Bottleneck and Sustained Imbalance Analysis
+
+Daily inflow was defined as children apprehended and placed in CBP custody, while daily outflow was defined as children discharged from HHS care. Backlog Change was calculated as inflow minus outflow. A bottleneck day was a day with positive Backlog Change. For sustained imbalance analysis, periods of at least three consecutive positive Backlog Change days were identified. A prolonged stagnation period was defined for this project as at least seven consecutive days.
+
+5.5 Temporal Analysis
+
+Monthly discharge trends were examined to identify changes over time. Average transfer and discharge activity was also compared between weekdays and weekends.
+
+6. Exploratory Data Analysis
+
+The dataset contains 720 valid daily observations after cleaning. The analysis generated time-series plots, a combined trend chart, a correlation heatmap, distribution plots, boxplots, a monthly-average chart, and a pairplot.
+
+Measure
+
+Observed value
+
+Total apprehended
+
+67,337
+
+Total transferred
+
+92,641
+
+Total discharged
+
+124,853
+
+Average daily apprehensions
+
+93.52
+
+Average daily transfers
+
+128.67
+
+Average daily discharges
+
+173.41
+
+Average HHS population
+
+6,061.28
+
+Peak HHS population
+
+11,516
+
+Peak daily apprehensions
+
+333
+
+Peak daily transfers
+
+440
+
+Peak daily discharges
+
+505
+
